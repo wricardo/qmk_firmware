@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define MOUSEKEY_DELAY             100
+#define MOUSEKEY_INTERVAL          40
+#define MOUSEKEY_MAX_SPEED         2
+#define MOUSEKEY_TIME_TO_MAX       10
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000

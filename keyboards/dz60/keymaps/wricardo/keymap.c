@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,       KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, _______, LSFT(KC_8), LSFT(KC_MINUS), LSFT(KC_EQL), LSFT(KC_5), LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
 		_______,       KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, LSFT(KC_6), KC_LPRN,     KC_RPRN,   LSFT(KC_7), KC_GRV,        XXXXXXX, _______,
 		_______,       _______, SENDSEMICOLEQ, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY,    XXXXXXX,     KC_MINUS,     KC_EQL,     LSFT(KC_GRV),  LSFT(KC_4),       _______, _______,
-		_______,       _______, _______,          _______, _______, _______,    _______, _______, _______,   MO(2), _______),
+		_______,       _______, MO(2),          _______, _______, _______,    _______, _______, _______,   MO(2), _______),
 
 
 	LAYOUT(

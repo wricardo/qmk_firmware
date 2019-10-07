@@ -21,6 +21,8 @@
 enum custom_keycodes {
   SENDSEMICOLEQ = SAFE_RANGE,
   SENDBANGEQ,
+  TMUXN,
+  TMUXP,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -35,35 +37,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("!]");// != in dvorak
       }
       break;
+    case TMUXN:
+      if (record->event.pressed) {
+				SEND_STRING(SS_LCTRL(" ") "l"); // ctrl + space + n in dvorak
+      }
+      break;
+    case TMUXP:
+      if (record->event.pressed) {
+				SEND_STRING(SS_LCTRL(" ") "r"); // ctrl + space + n in dvorak
+      }
+      break;
   }
   return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-			KC_GESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
+      KC_GESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
       LT(1,KC_TAB),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
       KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,     KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
-      KC_LSFT, LT(2,KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(1),
-      _______,  KC_LALT, KC_LGUI,                   KC_SPACE,                 KC_RGUI, KC_RALT,  _______
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(1),
+      _______,  KC_LALT, KC_LGUI,                   KC_SPACE,                 KC_RCTL, KC_RCTL,  _______
       ),
 
   [1] = LAYOUT(
-      RESET,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
-      _______, KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, _______, LSFT(KC_8), LSFT(KC_MINUS), LSFT(KC_EQL), LSFT(KC_5), LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
-      _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, LSFT(KC_6), KC_LPRN,     KC_RPRN,   LSFT(KC_7), KC_GRV,        XXXXXXX, _______,
-      _______, SENDSEMICOLEQ, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY,    XXXXXXX,     KC_MINUS,     KC_EQL,     LSFT(KC_GRV),  LSFT(KC_4), _______, _______,
-      _______, _______, _______,                   RGB_TOG,                   _______, _______, _______
+      RESET,  SENDBANGEQ,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______, _______,
+      _______, KC_PGDN, KC_UP,   KC_PGUP, KC_HOME, _______, LSFT(KC_8), LSFT(KC_MINUS), LSFT(KC_EQL), LSFT(KC_5), LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
+      KC_CAPSLOCK, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, LSFT(KC_6), KC_LPRN,     KC_RPRN,   LSFT(KC_7), KC_GRV,        XXXXXXX, LCTL(LGUI(KC_X)),
+      _______, SENDSEMICOLEQ, KC_MFFD, TMUXP, TMUXN, KC_MPLY,    XXXXXXX,     KC_MINUS,     KC_EQL,     LSFT(KC_GRV),  LSFT(KC_4), _______, _______,
+      _______, MO(3), MO(2),                   RGB_TOG,                   MO(2), MO(3), _______
       ),
   [2] = LAYOUT(
       RESET,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
-      _______, KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, _______, LSFT(KC_8), KC_7, KC_8, KC_9, LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
-      _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, LSFT(KC_6), KC_4, KC_5, KC_6, KC_GRV,        XXXXXXX, _______,
+      _______, KC_BTN1, KC_MS_U,   KC_BTN2, KC_HOME, _______, LSFT(KC_8), KC_7, KC_8, KC_9, LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
+      _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_END,  _______, LSFT(KC_6), KC_4, KC_5, KC_6, KC_GRV,        XXXXXXX, _______,
       _______, SENDSEMICOLEQ, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY, XXXXXXX,    KC_1,KC_2,KC_3,       LSFT(KC_4), _______, _______,
       _______, _______, _______,                   KC_0,                   _______, _______, _______
       ),
+  [3] = LAYOUT(
+      RESET,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
+      _______, KC_BTN1, KC_MS_U,   KC_BTN2, KC_HOME, _______,_______, KC_BTN1, KC_MS_U,   KC_BTN2,  LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
+      _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_END, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_6,         XXXXXXX, _______,
+      _______, SENDSEMICOLEQ, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY, XXXXXXX,    KC_LEFT, KC_DOWN, KC_RGHT,       LSFT(KC_4), _______, _______,
+      _______, _______, _______,                   KC_BTN1,                   _______, _______, _______
+      ),
 };
-      /* KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET, */
+     /* KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET, */
 
 
 void matrix_init_user(void) {
