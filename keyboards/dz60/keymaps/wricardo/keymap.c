@@ -6,6 +6,8 @@
 enum custom_keycodes {
   SENDSEMICOLEQ = SAFE_RANGE,
   SENDBANGEQ,
+  TMUXN,
+  TMUXP,
 };
 
 
@@ -19,6 +21,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SENDBANGEQ:
       if (record->event.pressed) {
         SEND_STRING("!]");// != in dvorak
+      }
+      break;
+    case TMUXN:
+      if (record->event.pressed) {
+				SEND_STRING(SS_LCTRL(" ") "l"); // ctrl + space + n in dvorak
+      }
+      break;
+    case TMUXP:
+      if (record->event.pressed) {
+				SEND_STRING(SS_LCTRL(" ") "r"); // ctrl + space + n in dvorak
       }
       break;
   }
@@ -40,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		RESET,        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,      KC_F7,          KC_F8,        KC_F9,      KC_F10,        KC_F11,        KC_F12,     _______, _______,
 		_______,       KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, _______, LSFT(KC_8), LSFT(KC_MINUS), LSFT(KC_EQL), LSFT(KC_5), LSFT(KC_BSLS), LSFT(KC_2),    SENDBANGEQ, RESET,
 		_______,       KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, LSFT(KC_6), KC_LPRN,     KC_RPRN,   LSFT(KC_7), KC_GRV,        XXXXXXX, _______,
-		_______,       _______, SENDSEMICOLEQ, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY,    XXXXXXX,     KC_MINUS,     KC_EQL,     LSFT(KC_GRV),  LSFT(KC_4),       _______, _______,
+		_______,       _______, SENDSEMICOLEQ, KC_MFFD, TMUXP, TMUXN, KC_MPLY,    XXXXXXX,     KC_MINUS,     KC_EQL,     LSFT(KC_GRV),  LSFT(KC_4),       _______, _______,
 		_______,       _______, MO(2),          _______, _______, _______,    _______, _______, _______,   MO(2), _______),
 
 
